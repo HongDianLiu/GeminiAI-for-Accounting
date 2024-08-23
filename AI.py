@@ -66,13 +66,13 @@ def reset() -> List:
     return []
 
 # function to call the model to generate
-def interact_customize(chatbot: List[Tuple[str, str]], prompt: str ,user_input: str, temp = 1.0) -> List[Tuple[str, str]]:
+def interact_customize(chatbot: List[Tuple[str, str]], prompt: str, user_input: str, temp=1.0) -> List[Tuple[str, str]]:
     '''
     * Arguments
 
       - chatbot: the model itself, the conversation is stored in list of tuples
 
-      - prompt: the prompt for your desginated task
+      - prompt: the prompt for your designated task
 
       - user_input: the user input of each round of conversation
 
@@ -87,20 +87,24 @@ def interact_customize(chatbot: List[Tuple[str, str]], prompt: str ,user_input: 
             messages.append({'role': 'user', 'parts': [input_text]})
             messages.append({'role': 'model', 'parts': [response_text]})
 
-        messages.append({'role': 'user', 'parts': [prompt+ "\n" + user_input]})
+        messages.append({'role': 'user', 'parts': [prompt + "\n" + user_input]})
 
         response = model.generate_content(
-          messages,
-          generation_config=genai.types.GenerationConfig(temperature=temp),
-          safety_settings=[
-          {"category": "HARM_CATEGORY_HARASSMENT","threshold": "BLOCK_NONE",},
-          {"category": "HARM_CATEGORY_HATE_SPEECH","threshold": "BLOCK_NONE",},
-          {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT","threshold": "BLOCK_NONE",},
-          {"category": "HARM_CATEGORY_DANGEROUS_CONTENT","threshold": "BLOCK_NONE",},
-          ]
+            messages,
+            generation_config=genai.types.GenerationConfig(temperature=temp),
+            safety_settings=[
+                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+            ]
         )
 
-        chatbot.append((user_input, response.text))
+        # Parse the response text as JSON
+        response_json = json.loads(response.text)
+
+        # Append the structured response to the chatbot list
+        chatbot.append((user_input, response_json))
 
     except Exception as e:
         print(f"Error occurred: {e}")
