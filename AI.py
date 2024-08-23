@@ -1,8 +1,8 @@
 import google.generativeai as genai
-from typing import List, Tuple
-import json
 from dotenv import load_dotenv
 import os
+import json
+from typing import List  # Import List from typing
 
 # Load environment variables from .env file
 load_dotenv()
@@ -87,3 +87,11 @@ def get_input_and_output_json(user_input: str) -> None:
 
     except Exception as e:
         print(f"Error generating content: {e}")
+
+# Main loop to accept user input
+if __name__ == "__main__":
+    while True:
+        user_input = input("Enter your expense statement (or type 'exit' to quit): ")
+        if user_input.lower() == 'exit':
+            break
+        get_input_and_output_json(user_input)
