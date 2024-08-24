@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Expense Statement Parser** is a Python-based tool that utilizes the Google Gemini API to analyze user-provided expense statements. It processes input text to extract key information such as the amount, title, description, split type, and currency, and returns this data in a structured JSON format.
+The **GeminiAI-for-Accounting** is a Python-based tool that utilizes the Google Gemini API to analyze user-provided expense statements. It processes input text to extract key information such as the amount, title, description, split type, and currency, and returns this data in a structured JSON format.
 
 ## Features
 
@@ -29,7 +29,7 @@ The **Expense Statement Parser** is a Python-based tool that utilizes the Google
    - Add your Google API key to the `.env` file:
 
      ```
-     GOOGLE_API_KEY=your_api_key_here
+     GOOGLE_API_KEY=type_your_api_key_here
      ```
 
 ## Usage
